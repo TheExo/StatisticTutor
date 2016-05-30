@@ -9,18 +9,24 @@ package InterfacePkg;
  *
  * @author ignacio
  */
-public class MainMenuFrame extends javax.swing.JFrame {
-    
-    private boolean isEnabled = false;
-    private final String[] listaA = new String[5];
-    
+public class MainMenuFrame extends javax.swing.JFrame {    
     /**
      * Creates new form MainMenuFrame
      */
     public MainMenuFrame() {
         initComponents();
-        itemCB.setEnabled(false);
-        listaA[0] = "Media Aritmética";
+        BtnGroup.add(firstGradeRBtn);
+        BtnGroup.add(secondGradeRBtn);
+        BtnGroup.add(thirdGradeRBtn);
+        BtnGroup.add(fourthGradeRBtn);
+        BtnGroup.add(fifthGradeRBtn);
+        BtnGroup.add(sixthGradeRBtn);
+        BtnGroup.add(seventhGradeRBtn);
+        BtnGroup.add(eigthGradeRBtn);
+        BtnGroup.add(ninthGradeRBtn);
+        BtnGroup.add(tenthGradeRBtn);
+        BtnGroup.add(eleventhGradeRBtn);
+        firstGradeRBtn.setSelected(true);
     }
 
     /**
@@ -32,12 +38,26 @@ public class MainMenuFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BtnGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cicleCB = new javax.swing.JComboBox<>();
         itemCB = new javax.swing.JComboBox<>();
-        acceptBtn = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        firstGradeRBtn = new javax.swing.JRadioButton();
+        secondGradeRBtn = new javax.swing.JRadioButton();
+        thirdGradeRBtn = new javax.swing.JRadioButton();
+        fourthGradeRBtn = new javax.swing.JRadioButton();
+        fifthGradeRBtn = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        sixthGradeRBtn = new javax.swing.JRadioButton();
+        seventhGradeRBtn = new javax.swing.JRadioButton();
+        eigthGradeRBtn = new javax.swing.JRadioButton();
+        ninthGradeRBtn = new javax.swing.JRadioButton();
+        tenthGradeRBtn = new javax.swing.JRadioButton();
+        jPanel3 = new javax.swing.JPanel();
+        eleventhGradeRBtn = new javax.swing.JRadioButton();
         closeBtn = new javax.swing.JButton();
+        acceptBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,17 +65,144 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Estadistica y Probabilidad");
 
-        cicleCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primer Ciclo", "Segundo Ciclo", "Tercer Ciclo", "Ciclo Diversificado" }));
-        cicleCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cicleCBActionPerformed(evt);
+        itemCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "a", "b", "c", "d", "e" }));
+
+        firstGradeRBtn.setText("Primero");
+        firstGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                firstGradeRBtnMouseClicked(evt);
             }
         });
 
-        acceptBtn.setText("Aceptar");
-        acceptBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptBtnActionPerformed(evt);
+        secondGradeRBtn.setText("Segundo");
+        secondGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                secondGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        thirdGradeRBtn.setText("Tercero");
+        thirdGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                thirdGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        fourthGradeRBtn.setText("Cuarto");
+        fourthGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fourthGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        fifthGradeRBtn.setText("Quinto");
+        fifthGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fifthGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(secondGradeRBtn)
+                    .addComponent(firstGradeRBtn)
+                    .addComponent(fifthGradeRBtn)
+                    .addComponent(thirdGradeRBtn)
+                    .addComponent(fourthGradeRBtn))
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(firstGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(secondGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thirdGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fourthGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fifthGradeRBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        sixthGradeRBtn.setText("Sexto");
+        sixthGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sixthGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        seventhGradeRBtn.setText("Sétimo");
+        seventhGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seventhGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        eigthGradeRBtn.setText("Octavo");
+        eigthGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eigthGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        ninthGradeRBtn.setText("Noveno");
+        ninthGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ninthGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        tenthGradeRBtn.setText("Décimo");
+        tenthGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tenthGradeRBtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sixthGradeRBtn)
+                    .addComponent(seventhGradeRBtn)
+                    .addComponent(eigthGradeRBtn)
+                    .addComponent(ninthGradeRBtn)
+                    .addComponent(tenthGradeRBtn))
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(sixthGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seventhGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eigthGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ninthGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tenthGradeRBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(130, 122));
+
+        eleventhGradeRBtn.setText("Undécimo");
+        eleventhGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eleventhGradeRBtnMouseClicked(evt);
             }
         });
 
@@ -66,35 +213,66 @@ public class MainMenuFrame extends javax.swing.JFrame {
             }
         });
 
+        acceptBtn.setText("Aceptar");
+        acceptBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(eleventhGradeRBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 28, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(acceptBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(closeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(eleventhGradeRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(acceptBtn)
+                .addGap(18, 18, 18)
+                .addComponent(closeBtn)
+                .addGap(14, 14, 14))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(cicleCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(acceptBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6))
-                            .addComponent(itemCB, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(72, 72, 72))))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(itemCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 338, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,33 +282,22 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cicleCB, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(itemCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(acceptBtn)
-                    .addComponent(closeBtn))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cicleCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cicleCBActionPerformed
-        isEnabled = true;
-        
-        if(cicleCB.getSelectedItem().equals("Primer Ciclo")){
-            itemCB.removeAllItems();
-            for(String subject:listaA)
-                itemCB.addItem(subject);
-            itemCB.setEnabled(true); 
-        }
-        
-    }//GEN-LAST:event_cicleCBActionPerformed
-
     private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
-        if(cicleCB.getSelectedItem().equals("Primer Ciclo") && itemCB.getSelectedItem().equals("Media Aritmética")){
+        if(firstGradeRBtn.isSelected() && itemCB.getSelectedItem().equals("Media Aritmética")){
             GrapherFrame a =  new GrapherFrame();
             a.setVisible(true);
             this.dispose();
@@ -139,7 +306,115 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         this.dispose();
+        itemCB.removeAllItems();
+        itemCB.addItem("Moda");
+        itemCB.addItem("Media Arítmetica");
+        itemCB.addItem("Recolección de Información");
+        itemCB.addItem("Frecuencia");
+        itemCB.addItem("Representación");
+        itemCB.addItem("Medidas de Posición");
     }//GEN-LAST:event_closeBtnActionPerformed
+
+    /*First radio button menu changer
+    All mouse clicked events for radio 
+    buttons are the same for each subject*/
+    private void firstGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_firstGradeRBtnMouseClicked
+
+    private void secondGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secondGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_secondGradeRBtnMouseClicked
+
+    private void thirdGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirdGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_thirdGradeRBtnMouseClicked
+
+    private void fourthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourthGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_fourthGradeRBtnMouseClicked
+
+    private void fifthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fifthGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_fifthGradeRBtnMouseClicked
+
+    private void sixthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixthGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_sixthGradeRBtnMouseClicked
+
+    private void seventhGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seventhGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("Moda");
+        itemCB.addItem("Media Arítmetica");
+        itemCB.addItem("Recolección de Información");
+        itemCB.addItem("Frecuencia");
+        itemCB.addItem("Representación");
+        itemCB.addItem("Medidas de Posición");
+    }//GEN-LAST:event_seventhGradeRBtnMouseClicked
+
+    private void eigthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eigthGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("Recolección de Información");
+        itemCB.addItem("Frecuencia");
+        itemCB.addItem("Representación");
+        itemCB.addItem("Medidas de Posición");
+    }//GEN-LAST:event_eigthGradeRBtnMouseClicked
+
+    private void ninthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ninthGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("Variables Cuantitativas");
+        itemCB.addItem("Distribuciones de Frecuencia");
+        itemCB.addItem("Representación Tabular");
+        itemCB.addItem("Representación Gráfica");
+    }//GEN-LAST:event_ninthGradeRBtnMouseClicked
+
+    private void tenthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenthGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_tenthGradeRBtnMouseClicked
+
+    private void eleventhGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eleventhGradeRBtnMouseClicked
+        itemCB.removeAllItems();
+        itemCB.addItem("a");
+        itemCB.addItem("b");
+        itemCB.addItem("c");
+        itemCB.addItem("d");
+        itemCB.addItem("e");
+    }//GEN-LAST:event_eleventhGradeRBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -177,11 +452,25 @@ public class MainMenuFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup BtnGroup;
     private javax.swing.JButton acceptBtn;
-    private javax.swing.JComboBox<String> cicleCB;
     private javax.swing.JButton closeBtn;
+    private javax.swing.JRadioButton eigthGradeRBtn;
+    private javax.swing.JRadioButton eleventhGradeRBtn;
+    private javax.swing.JRadioButton fifthGradeRBtn;
+    private javax.swing.JRadioButton firstGradeRBtn;
+    private javax.swing.JRadioButton fourthGradeRBtn;
     private javax.swing.JComboBox<String> itemCB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton ninthGradeRBtn;
+    private javax.swing.JRadioButton secondGradeRBtn;
+    private javax.swing.JRadioButton seventhGradeRBtn;
+    private javax.swing.JRadioButton sixthGradeRBtn;
+    private javax.swing.JRadioButton tenthGradeRBtn;
+    private javax.swing.JRadioButton thirdGradeRBtn;
     // End of variables declaration//GEN-END:variables
 }

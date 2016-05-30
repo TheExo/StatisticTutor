@@ -5,7 +5,7 @@
  */
 package LogicPkg;
 
-import prografinal.InterfacePkg.MainMenuFrame;
+import InterfacePkg.MainMenuFrame;
 
 /**
  *

@@ -20,13 +20,20 @@ public class AritmeticMedian {
     public AritmeticMedian(){}
       
     //This reads the input directly from the textfield and parses it into a double
-    public boolean readInput(String pInput){
-        double castable = Double.parseDouble(pInput);
-        return list.add(castable);
+    private void readInput(ArrayList<String> pInput){
+        list.clear();
+        try{
+            for(String data : pInput){
+                double castable = Double.parseDouble(data);
+                list.add(castable);
+            }
+        }
+        catch(ArithmeticException e){}
     }
     
     //Returns the aritmetic median from the actual elements of the list
-    public double calcMedian(){
+    public double calcMedian(ArrayList<String> pInput){
+        readInput(pInput);
         double res = 0;
         for(Double data: list)
             res += data;

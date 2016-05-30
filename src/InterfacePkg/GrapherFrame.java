@@ -202,6 +202,8 @@ public class GrapherFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        double res = calc.calcMedian(list);
+        resultDisplayTA.setText(String.valueOf(res));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed

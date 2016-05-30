@@ -20,7 +20,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
     public MainMenuFrame() {
         initComponents();
         itemCB.setEnabled(false);
-        listaA[0] = "a";
+        listaA[0] = "Media Aritmética";
     }
 
     /**
@@ -37,7 +37,8 @@ public class MainMenuFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cicleCB = new javax.swing.JComboBox<>();
         itemCB = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        acceptBtn = new javax.swing.JButton();
+        closeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,17 +46,24 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Estadistica y Probabilidad");
 
-        cicleCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primer  Ciclo", "Segundo Ciclo", "Tercer Ciclo ", "Ciclo Diversificado" }));
+        cicleCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primer Ciclo", "Segundo Ciclo", "Tercer Ciclo", "Ciclo Diversificado" }));
         cicleCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cicleCBActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        acceptBtn.setText("Aceptar");
+        acceptBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                acceptBtnActionPerformed(evt);
+            }
+        });
+
+        closeBtn.setText("Cerrar");
+        closeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtnActionPerformed(evt);
             }
         });
 
@@ -75,11 +83,12 @@ public class MainMenuFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2)))
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(closeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(acceptBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +102,9 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(itemCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acceptBtn)
+                    .addComponent(closeBtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -118,21 +129,27 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void cicleCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cicleCBActionPerformed
         isEnabled = true;
-        itemCB.setEnabled(true);
-        itemCB.removeAllItems();
-        itemCB.addItem("aaaa");
-        itemCB.addItem("bbbb");
-        itemCB.addItem("cccc");
-        itemCB.addItem("dddd");
-        itemCB.addItem("eeee");
+        
+        if(cicleCB.getSelectedItem().equals("Primer Ciclo")){
+            itemCB.removeAllItems();
+            for(String subject:listaA)
+                itemCB.addItem(subject);
+            itemCB.setEnabled(true); 
+        }
+        
     }//GEN-LAST:event_cicleCBActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        GrapherFrame a =  new GrapherFrame();
-        a.setVisible(true);
+    private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
+        if(cicleCB.getSelectedItem().equals("Primer Ciclo") && itemCB.getSelectedItem().equals("Media Aritmética")){
+            GrapherFrame a =  new GrapherFrame();
+            a.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_acceptBtnActionPerformed
+
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_closeBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,9 +187,10 @@ public class MainMenuFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton acceptBtn;
     private javax.swing.JComboBox<String> cicleCB;
+    private javax.swing.JButton closeBtn;
     private javax.swing.JComboBox<String> itemCB;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

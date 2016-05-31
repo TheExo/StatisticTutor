@@ -89,7 +89,7 @@ public class posMeasuresFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Ayuda");
+        jLabel4.setText("Explicación");
 
         helpTA.setEditable(false);
         helpTA.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));

@@ -301,20 +301,18 @@ public class MainMenuFrame extends javax.swing.JFrame {
             
         }
         if(seventhGradeRBtn.isSelected()){
-            if(itemCB.getSelectedItem().equals("Estadística")){
-                
-            }
             if(itemCB.getSelectedItem().equals("Conocimientos Básicos")){
-                
+                baseKnowlegeFrame a =  new baseKnowlegeFrame();
+                a.setVisible(true);
+                this.dispose();
             }
             if(itemCB.getSelectedItem().equals("Recolección de Información")){
                 
             }
             if(itemCB.getSelectedItem().equals("Frecuencia")){
-                
-            }
-            if(itemCB.getSelectedItem().equals("Representación")){
-                
+                frequencyMeasuresFrame a =  new frequencyMeasuresFrame();
+                a.setVisible(true);
+                this.dispose();
             }
             if(itemCB.getSelectedItem().equals("Medidas de Posición")){
                 posMeasuresFrame a =  new posMeasuresFrame();
@@ -387,11 +385,9 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void seventhGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seventhGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("Estadística");
         itemCB.addItem("Conocimientos Básicos");
         itemCB.addItem("Recolección de Información");
         itemCB.addItem("Frecuencia");
-        itemCB.addItem("Representación");
         itemCB.addItem("Medidas de Posición");
     }//GEN-LAST:event_seventhGradeRBtnMouseClicked
 

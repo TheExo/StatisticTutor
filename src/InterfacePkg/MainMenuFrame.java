@@ -298,21 +298,34 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
         if(firstGradeRBtn.isSelected() && itemCB.getSelectedItem().equals("Media Aritmética")){
-            GrapherFrame a =  new GrapherFrame();
-            a.setVisible(true);
-            this.dispose();
+            
+        }
+        if(seventhGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Estadística")){
+                
+            }
+            if(itemCB.getSelectedItem().equals("Conocimientos Básicos")){
+                
+            }
+            if(itemCB.getSelectedItem().equals("Recolección de Información")){
+                
+            }
+            if(itemCB.getSelectedItem().equals("Frecuencia")){
+                
+            }
+            if(itemCB.getSelectedItem().equals("Representación")){
+                
+            }
+            if(itemCB.getSelectedItem().equals("Medidas de Posición")){
+                posMeasuresFrame a =  new posMeasuresFrame();
+                a.setVisible(true);
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_acceptBtnActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         this.dispose();
-        itemCB.removeAllItems();
-        itemCB.addItem("Moda");
-        itemCB.addItem("Media Arítmetica");
-        itemCB.addItem("Recolección de Información");
-        itemCB.addItem("Frecuencia");
-        itemCB.addItem("Representación");
-        itemCB.addItem("Medidas de Posición");
     }//GEN-LAST:event_closeBtnActionPerformed
 
     /*First radio button menu changer
@@ -374,8 +387,8 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void seventhGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seventhGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("Moda");
-        itemCB.addItem("Media Arítmetica");
+        itemCB.addItem("Estadística");
+        itemCB.addItem("Conocimientos Básicos");
         itemCB.addItem("Recolección de Información");
         itemCB.addItem("Frecuencia");
         itemCB.addItem("Representación");

@@ -320,6 +320,28 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 this.dispose();
             }
         }
+        
+        //Eigth grade subjects
+        if(eigthGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Recolección de Información")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame();
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Frecuencia")){
+                
+            }
+            if(itemCB.getSelectedItem().equals("Representación")){
+                graphicBarFrame a =  new graphicBarFrame();
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Medidas de Posición")){
+                posMeasuresFrame a =  new posMeasuresFrame();
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_acceptBtnActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed

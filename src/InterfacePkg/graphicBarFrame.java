@@ -5,6 +5,7 @@
  */
 package InterfacePkg;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -120,10 +121,10 @@ public class graphicBarFrame extends javax.swing.JFrame {
 
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"5", "6", "8", "4"}
+                {}
             },
             new String [] {
-                "Dato 1", "Dato 2", "Dato 3", "Dato 4"
+
             }
         ));
         jScrollPane1.setViewportView(dataTable);
@@ -244,11 +245,13 @@ public class graphicBarFrame extends javax.swing.JFrame {
         DefaultCategoryDataset data = new DefaultCategoryDataset();
             
         barGraphPanel.removeAll();
-        data.addValue(5, "Dato 1", "1");
-        data.addValue(6, "Dato 2", "2");
-        data.addValue(8, "Dato 3", "3");
-        data.addValue(4, "Dato 4", "4");
-        
+        for(int i = 0; i<dataTable.getColumnCount(); i++){
+            String input = String.valueOf(dataTable.getValueAt(0, i));
+            data.addValue(Integer.parseInt(input), String.valueOf(i), "");
+            System.out.println(String.valueOf(dataTable.getValueAt(0, i)));
+        }
+
+
         chart = ChartFactory.createBarChart("Gráfico de Barras", "X",
                 "Y", data, PlotOrientation.VERTICAL, true,true,true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
@@ -262,8 +265,9 @@ public class graphicBarFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
-        model.addColumn("NuevoDato");
+    String s = (String)JOptionPane.showInputDialog(this, "Añada el nombre de la columna del dato");
+    DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+    model.addColumn(s);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

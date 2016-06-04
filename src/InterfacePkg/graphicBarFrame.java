@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -19,17 +20,38 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import DataPkg.FileManager;
+import DataPkg.SavedFileObj;
+import DataPkg.graphFileReader;
+import DataPkg.loader;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author ignacio
  */
 public class graphicBarFrame extends javax.swing.JFrame {
-
+    
+    graphFileReader preLoad = new graphFileReader(null,null,null,null,null);
+    private FileManager fileManager;
     /**
      * Creates new form graphicBarFrame
+     * @param preLoad
      */
-    public graphicBarFrame() {
+    public graphicBarFrame(graphFileReader preLoad) {
         initComponents();
+        if(preLoad!=null){
+            for(String data: preLoad.getColumns()){
+                DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+                model.addColumn(data);
+            }
+            for(int i = 0; i<dataTable.getComponentCount(); i++){
+                Integer data = preLoad.getValues().get(i);
+                dataTable.setValueAt(data, 0, i);
+            }
+        }
     }
 
     /**
@@ -49,19 +71,19 @@ public class graphicBarFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         yTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        closeBtn = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
+        addColumnBtn = new javax.swing.JButton();
+        graphBtn = new javax.swing.JButton();
+        returnBtn = new javax.swing.JButton();
+        subsColumnBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        titleTextField = new javax.swing.JTextField();
         barGraphPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -84,46 +106,46 @@ public class graphicBarFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Valores");
 
-        jButton1.setText("Cerrar");
-        jButton1.setPreferredSize(new java.awt.Dimension(120, 32));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        closeBtn.setText("Cerrar");
+        closeBtn.setPreferredSize(new java.awt.Dimension(120, 32));
+        closeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                closeBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Reiniciar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        resetBtn.setText("Reiniciar");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                resetBtnActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Columna +");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        addColumnBtn.setText("Columna +");
+        addColumnBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                addColumnBtnActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Graficar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        graphBtn.setText("Graficar");
+        graphBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                graphBtnActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Regresar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        returnBtn.setText("Regresar");
+        returnBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                returnBtnActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Columna -");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        subsColumnBtn.setText("Columna -");
+        subsColumnBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                subsColumnBtnActionPerformed(evt);
             }
         });
 
@@ -146,7 +168,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
 
         jLabel7.setText("Título");
 
-        jTextField1.setText("Gráfico de Barras");
+        titleTextField.setText("Gráfico de Barras");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -170,20 +192,20 @@ public class graphicBarFrame extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(subsColumnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(graphBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(addColumnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel7))
                         .addGap(0, 7, Short.MAX_VALUE))
-                    .addComponent(jTextField1))
+                    .addComponent(titleTextField))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -196,7 +218,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,14 +233,14 @@ public class graphicBarFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(resetBtn)
+                    .addComponent(addColumnBtn)
+                    .addComponent(graphBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(returnBtn)
+                    .addComponent(subsColumnBtn)
+                    .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,12 +307,12 @@ public class graphicBarFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         barGraphPanel.removeAll();
         barGraphPanel.repaint();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_resetBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void graphBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphBtnActionPerformed
         ChartPanel panel;
         JFreeChart chart = null;
         
@@ -303,7 +325,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
         }
 
 
-        chart = ChartFactory.createBarChart("Gráfico de Barras", xTextField.getText(),
+        chart = ChartFactory.createBarChart(titleTextField.getText(), xTextField.getText(),
                 yTextField.getText(), data, PlotOrientation.VERTICAL, true,true,true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
@@ -313,71 +335,78 @@ public class graphicBarFrame extends javax.swing.JFrame {
         
         barGraphPanel.add(panel);
         barGraphPanel.repaint();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_graphBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void addColumnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColumnBtnActionPerformed
     String s = (String)JOptionPane.showInputDialog(this, "Añada el nombre de la columna del dato");
     DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
     model.addColumn(s);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_addColumnBtnActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void subsColumnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subsColumnBtnActionPerformed
         DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
         model.setColumnCount(model.getColumnCount()-1);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_subsColumnBtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void returnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBtnActionPerformed
         MainMenuFrame main =  new MainMenuFrame();
         main.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_returnBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_closeBtnActionPerformed
 
     private void saveMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuBtnActionPerformed
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Specify a file to save");   
-    int userSelection = fileChooser.showSaveDialog(this);
+        
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Specify a file to save");  
+        int userSelection = fileChooser.showSaveDialog(this);
+        
+        ArrayList<String> columns = getColumns();
+        ArrayList<Integer> values = getValues();
+        SavedFileObj savedFile = new SavedFileObj(25);
+        graphFileReader savedGraph = new graphFileReader(titleTextField.getText(), xTextField.getText(), yTextField.getText(), columns, values);
+        
+        if (userSelection == JFileChooser.APPROVE_OPTION){
+            try{
+                File fileToSave = fileChooser.getSelectedFile();
+                if(!fileToSave.getAbsolutePath().endsWith(".dstf"))
+                    fileManager = new FileManager(savedFile, fileToSave.getAbsolutePath()+".dstf");
 
-    if (userSelection == JFileChooser.APPROVE_OPTION) {
-        File fileToSave = fileChooser.getSelectedFile();
-        System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-    }
+                fileManager.save(savedGraph);
+            }
+            catch (FileNotFoundException ex) {
+                Logger.getLogger(graphicBarFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }//GEN-LAST:event_saveMenuBtnActionPerformed
 
     private void loadMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuBtnActionPerformed
         //Handle open button action.
         final JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
+        fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            BufferedReader br = null;
-
-            try {
-                String sCurrentLine;
-
-                br = new BufferedReader(new FileReader(file));
-
-                while ((sCurrentLine = br.readLine()) != null) {
-                        System.out.println(sCurrentLine);
-                }
-
-            } catch (IOException e) {}
-            finally {
-                    try {
-                        if (br != null)br.close();
-                    } catch (IOException ex) {}
-            }
-
-        }    
+            System.out.println(file.getAbsolutePath());
+            fileManager.load(file.getAbsolutePath());
+            this.dispose();
+        }
+        
+        
     }//GEN-LAST:event_loadMenuBtnActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -405,20 +434,43 @@ public class graphicBarFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new graphicBarFrame().setVisible(true);
+                new graphicBarFrame(null).setVisible(true);
             }
         });
     }
+    
+    private ArrayList<String> getColumns(){
+        ArrayList<String> list = new ArrayList();
+        if(dataTable.getColumnCount()!=0){
+            for(int i = 0; i<dataTable.getColumnCount(); i++)
+                list.add(dataTable.getColumnName(i));
+            return list;
+        }
+        else{
+            return null;
+        }
+    }
+    
+    private ArrayList<Integer> getValues(){
+        ArrayList<Integer> list = new ArrayList();
+        if(dataTable.getColumnCount()!=0){
+            for(int i = 0; i<dataTable.getColumnCount(); i++){
+                String input = String.valueOf(dataTable.getValueAt(0, i));
+                list.add(Integer.parseInt(input));
+            }
+            return list;
+        }
+        else{
+            return null;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addColumnBtn;
     private javax.swing.JPanel barGraphPanel;
+    private javax.swing.JButton closeBtn;
     private javax.swing.JTable dataTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton graphBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -432,9 +484,12 @@ public class graphicBarFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem loadMenuBtn;
+    private javax.swing.JButton resetBtn;
+    private javax.swing.JButton returnBtn;
     private javax.swing.JMenuItem saveMenuBtn;
+    private javax.swing.JButton subsColumnBtn;
+    private javax.swing.JTextField titleTextField;
     private javax.swing.JTextField xTextField;
     private javax.swing.JTextField yTextField;
     // End of variables declaration//GEN-END:variables

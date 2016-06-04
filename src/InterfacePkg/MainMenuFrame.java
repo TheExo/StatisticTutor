@@ -332,7 +332,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 
             }
             if(itemCB.getSelectedItem().equals("Representación")){
-                graphicBarFrame a =  new graphicBarFrame();
+                graphicBarFrame a =  new graphicBarFrame(null);
                 a.setVisible(true);
                 this.dispose();
             }

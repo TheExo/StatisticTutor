@@ -48,6 +48,7 @@ public class FileManager {
                 graphFileReader a = (graphFileReader) in.readObject();
                 in.close();
                 fileIn.close();
+                System.out.println(a.getX());
                 graphicBarFrame b =  new graphicBarFrame(a);
                 b.setVisible(true);
             }

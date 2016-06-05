@@ -24,7 +24,11 @@ import DataPkg.FileManager;
 import DataPkg.SavedFileObj;
 import DataPkg.graphFileReader;
 import DataPkg.loader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,8 +37,11 @@ import java.util.logging.Logger;
  * @author ignacio
  */
 public class graphicBarFrame extends javax.swing.JFrame {
+    //Atributes for the file
+    String path = null;
+    private final int windowID = 83;
     
-    graphFileReader preLoad = new graphFileReader(null,null,null,null,null);
+    graphFileReader preLoad = null;
     private FileManager fileManager;
     /**
      * Creates new form graphicBarFrame
@@ -47,11 +54,37 @@ public class graphicBarFrame extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
                 model.addColumn(data);
             }
-            for(int i = 0; i<dataTable.getComponentCount(); i++){
-                Integer data = preLoad.getValues().get(i);
-                dataTable.setValueAt(data, 0, i);
+            int count = 0;
+            for(Integer data:preLoad.getValues()){              
+                dataTable.setValueAt(data, 0, count);
+                count++;
             }
-        }
+            xTextField.setText(preLoad.getX());
+            yTextField.setText(preLoad.getY());
+            titleTextField.setText(preLoad.getTitle());
+            ChartPanel panel;
+            JFreeChart chart = null;
+
+            DefaultCategoryDataset data = new DefaultCategoryDataset();
+
+            barGraphPanel.removeAll();
+            for(int i = 0; i<dataTable.getColumnCount(); i++){
+                String input = String.valueOf(dataTable.getValueAt(0, i));
+                data.addValue(Integer.parseInt(input), String.valueOf(dataTable.getColumnName(i)), "");
+            }
+
+
+            chart = ChartFactory.createBarChart(titleTextField.getText(), xTextField.getText(),
+                    yTextField.getText(), data, PlotOrientation.VERTICAL, true,true,true);
+            CategoryPlot plot = (CategoryPlot) chart.getPlot();
+            plot.setDomainGridlinesVisible(true);
+
+            panel = new ChartPanel(chart);
+            panel.setBounds(5,10,400,475);
+
+            barGraphPanel.add(panel);
+            barGraphPanel.repaint();
+            }
     }
 
     /**
@@ -360,6 +393,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
 
     private void saveMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuBtnActionPerformed
         
+        String path;
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
         fileChooser.setFileFilter(filter);
@@ -368,19 +402,30 @@ public class graphicBarFrame extends javax.swing.JFrame {
         
         ArrayList<String> columns = getColumns();
         ArrayList<Integer> values = getValues();
-        SavedFileObj savedFile = new SavedFileObj(25);
+        SavedFileObj savedFile = new SavedFileObj(windowID);
         graphFileReader savedGraph = new graphFileReader(titleTextField.getText(), xTextField.getText(), yTextField.getText(), columns, values);
         
         if (userSelection == JFileChooser.APPROVE_OPTION){
-            try{
-                File fileToSave = fileChooser.getSelectedFile();
-                if(!fileToSave.getAbsolutePath().endsWith(".dstf"))
-                    fileManager = new FileManager(savedFile, fileToSave.getAbsolutePath()+".dstf");
-
-                fileManager.save(savedGraph);
+            File fileToSave = fileChooser.getSelectedFile();
+            if(fileToSave.exists() && !fileToSave.isDirectory()){
             }
-            catch (FileNotFoundException ex) {
-                Logger.getLogger(graphicBarFrame.class.getName()).log(Level.SEVERE, null, ex);
+            
+            if(!fileToSave.getAbsolutePath().endsWith(".dstf"))
+                path = fileToSave.getAbsolutePath()+".dstf";
+            else
+                path = fileToSave.getAbsolutePath();
+            
+            try
+            {
+                FileOutputStream fileOut = new FileOutputStream(path);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(savedFile);
+                out.writeObject(savedGraph);
+                out.close();
+                fileOut.close();
+            }
+            catch(IOException i){
+                i.printStackTrace();
             }
 
         }
@@ -388,16 +433,41 @@ public class graphicBarFrame extends javax.swing.JFrame {
 
     private void loadMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuBtnActionPerformed
         //Handle open button action.
-        final JFileChooser fc = new JFileChooser();
+        JFileChooser fc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            //Parts of the file manager(path, and savedFileObj)
             File file = fc.getSelectedFile();
-            System.out.println(file.getAbsolutePath());
-            fileManager.load(file.getAbsolutePath());
-            this.dispose();
+            String path = file.getAbsolutePath();
+            SavedFileObj e = null;
+            
+            //
+            try{           
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                e = (SavedFileObj) in.readObject();
+                if(e.getWindowType() == 83){
+                    graphFileReader a = (graphFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    graphicBarFrame b =  new graphicBarFrame(a);
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    in.close();
+                    fileIn.close();
+                }
+            }
+            catch(IOException i){
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                c.printStackTrace();
+            };
         }
         
         

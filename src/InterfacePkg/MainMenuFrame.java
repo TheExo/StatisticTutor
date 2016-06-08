@@ -58,6 +58,10 @@ public class MainMenuFrame extends javax.swing.JFrame {
         eleventhGradeRBtn = new javax.swing.JRadioButton();
         closeBtn = new javax.swing.JButton();
         acceptBtn = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        toolMI = new javax.swing.JMenu();
+        graphMakerMI = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -248,6 +252,23 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 .addComponent(closeBtn)
                 .addGap(14, 14, 14))
         );
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        toolMI.setText("Herramientas");
+
+        graphMakerMI.setText("Graficador");
+        graphMakerMI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphMakerMIActionPerformed(evt);
+            }
+        });
+        toolMI.add(graphMakerMI);
+
+        jMenuBar1.add(toolMI);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -447,6 +468,12 @@ public class MainMenuFrame extends javax.swing.JFrame {
         itemCB.addItem("e");
     }//GEN-LAST:event_eleventhGradeRBtnMouseClicked
 
+    private void graphMakerMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMakerMIActionPerformed
+        graphicBarFrame a =  new graphicBarFrame(null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_graphMakerMIActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -491,9 +518,12 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton fifthGradeRBtn;
     private javax.swing.JRadioButton firstGradeRBtn;
     private javax.swing.JRadioButton fourthGradeRBtn;
+    private javax.swing.JMenuItem graphMakerMI;
     private javax.swing.JComboBox<String> itemCB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -503,5 +533,6 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton sixthGradeRBtn;
     private javax.swing.JRadioButton tenthGradeRBtn;
     private javax.swing.JRadioButton thirdGradeRBtn;
+    private javax.swing.JMenu toolMI;
     // End of variables declaration//GEN-END:variables
 }

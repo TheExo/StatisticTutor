@@ -5,9 +5,7 @@
  */
 package InterfacePkg;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,18 +18,14 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import DataPkg.FileManager;
-import DataPkg.SavedFileObj;
-import DataPkg.graphFileReader;
-import DataPkg.loader;
+import DataPkg.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.CellEditor;
+import javax.swing.table.TableColumn;
 /**
  *
  * @author ignacio
@@ -49,6 +43,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
      */
     public graphicBarFrame(graphFileReader preLoad) {
         initComponents();
+        dataTable.setCellSelectionEnabled(true);
         if(preLoad!=null){
             for(String data: preLoad.getColumns()){
                 DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
@@ -63,7 +58,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
             yTextField.setText(preLoad.getY());
             titleTextField.setText(preLoad.getTitle());
             ChartPanel panel;
-            JFreeChart chart = null;
+            JFreeChart chart;
 
             DefaultCategoryDataset data = new DefaultCategoryDataset();
 
@@ -197,6 +192,14 @@ public class graphicBarFrame extends javax.swing.JFrame {
 
             }
         ));
+        dataTable.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dataTableFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dataTableFocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(dataTable);
 
         jLabel7.setText("Título");
@@ -343,42 +346,76 @@ public class graphicBarFrame extends javax.swing.JFrame {
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         barGraphPanel.removeAll();
         barGraphPanel.repaint();
+        xTextField.setText("X");
+        yTextField.setText("Y");
+        titleTextField.setText("Gráfico de Barras");
     }//GEN-LAST:event_resetBtnActionPerformed
 
     private void graphBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphBtnActionPerformed
         ChartPanel panel;
-        JFreeChart chart = null;
+        JFreeChart chart;
         
         DefaultCategoryDataset data = new DefaultCategoryDataset();
-            
-        barGraphPanel.removeAll();
-        for(int i = 0; i<dataTable.getColumnCount(); i++){
-            String input = String.valueOf(dataTable.getValueAt(0, i));
-            data.addValue(Integer.parseInt(input), String.valueOf(dataTable.getColumnName(i)), "");
+        
+        try{
+            barGraphPanel.removeAll();
+            for(int i = 0; i<dataTable.getColumnCount(); i++){
+                String input = String.valueOf(dataTable.getValueAt(0, i));
+                data.addValue(Double.parseDouble(input), String.valueOf(dataTable.getColumnName(i)), "");
+            }
+
+
+            chart = ChartFactory.createBarChart(titleTextField.getText(), xTextField.getText(),
+                    yTextField.getText(), data, PlotOrientation.VERTICAL, true,true,true);
+            CategoryPlot plot = (CategoryPlot) chart.getPlot();
+            plot.setDomainGridlinesVisible(true);
+
+            panel = new ChartPanel(chart);
+            panel.setBounds(5,10,400,475);
+
+            barGraphPanel.add(panel);
+            barGraphPanel.repaint();
         }
-
-
-        chart = ChartFactory.createBarChart(titleTextField.getText(), xTextField.getText(),
-                yTextField.getText(), data, PlotOrientation.VERTICAL, true,true,true);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setDomainGridlinesVisible(true);
-        
-        panel = new ChartPanel(chart);
-        panel.setBounds(5,10,400,475);
-        
-        barGraphPanel.add(panel);
-        barGraphPanel.repaint();
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Todas las entradas de la tabla deben ser números,\n"
+                                          + " y no pueden haber espacios vacios",
+                                          "Error Numérico", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_graphBtnActionPerformed
 
     private void addColumnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColumnBtnActionPerformed
-    String s = (String)JOptionPane.showInputDialog(this, "Añada el nombre de la columna del dato");
-    DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
-    model.addColumn(s);
+        String s = "";
+        try{
+            do
+                s = (String)JOptionPane.showInputDialog(this, "Añada el título de la columna a ser agregada");
+            while(s.isEmpty());
+                DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+                model.addColumn(s);
+        }
+        catch(NullPointerException e){}
     }//GEN-LAST:event_addColumnBtnActionPerformed
 
     private void subsColumnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subsColumnBtnActionPerformed
-        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
-        model.setColumnCount(model.getColumnCount()-1);
+        String s = "";
+        int selector = -1;
+        try{
+            do
+                s = (String)JOptionPane.showInputDialog(this, "Añada el título de la columna a ser borrada");
+            while(s.isEmpty());
+                for(int i = 0; i<dataTable.getColumnCount(); i++){
+                    if(dataTable.getColumnName(i).equals(s)){
+                        selector = i;
+                        break;
+                   }
+                }
+                TableColumn col = dataTable.getColumnModel().getColumn(selector);
+                dataTable.removeColumn(col);
+
+        }
+        catch(NullPointerException e){}
+        catch(IndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(this, "No se encontró el elemento");
+        }
     }//GEN-LAST:event_subsColumnBtnActionPerformed
 
     private void returnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBtnActionPerformed
@@ -472,6 +509,16 @@ public class graphicBarFrame extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_loadMenuBtnActionPerformed
+
+    private void dataTableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dataTableFocusLost
+        CellEditor cellEditor = dataTable.getCellEditor();
+        if (cellEditor != null)
+            cellEditor.stopCellEditing();  
+    }//GEN-LAST:event_dataTableFocusLost
+
+    private void dataTableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dataTableFocusGained
+        
+    }//GEN-LAST:event_dataTableFocusGained
 
     /**
      * @param args the command line arguments

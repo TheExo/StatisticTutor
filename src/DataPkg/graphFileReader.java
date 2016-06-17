@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class graphFileReader implements java.io.Serializable{
     private String _title, _x, _y;
     private ArrayList<String> _columns = new ArrayList();
-    private ArrayList<Integer> _values = new ArrayList();
+    private ArrayList<Double> _values = new ArrayList();
 
-    public graphFileReader(String _title, String _x, String _y, ArrayList<String> _columns, ArrayList<Integer> _values) {
+    public graphFileReader(String _title, String _x, String _y, ArrayList<String> _columns, ArrayList<Double> _values) {
         this._title = _title;
         this._x = _x;
         this._y = _y;
@@ -40,7 +40,7 @@ public class graphFileReader implements java.io.Serializable{
         return _columns;
     }
 
-    public ArrayList<Integer> getValues() {
+    public ArrayList<Double> getValues() {
         return _values;
     }
     

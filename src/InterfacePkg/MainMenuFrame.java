@@ -5,6 +5,23 @@
  */
 package InterfacePkg;
 
+import DataPkg.SavedFileObj;
+import DataPkg.frequencyFileReader;
+import DataPkg.graphFileReader;
+import DataPkg.posMeasuresFileReader;
+import InterfacePkg.tools.baseKnowlegeFrame;
+import InterfacePkg.tools.graphicBarFrame;
+import InterfacePkg.tools.posMeasuresFrame;
+import InterfacePkg.tools.frequencyMeasuresFrame;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author ignacio
@@ -60,8 +77,10 @@ public class MainMenuFrame extends javax.swing.JFrame {
         acceptBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        loadMBtn = new javax.swing.JMenuItem();
         toolMI = new javax.swing.JMenu();
         graphMakerMI = new javax.swing.JMenuItem();
+        frequencyMBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -253,7 +272,17 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Archivo");
+
+        loadMBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        loadMBtn.setText("Cargar");
+        loadMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadMBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(loadMBtn);
+
         jMenuBar1.add(jMenu1);
 
         toolMI.setText("Herramientas");
@@ -265,6 +294,14 @@ public class MainMenuFrame extends javax.swing.JFrame {
             }
         });
         toolMI.add(graphMakerMI);
+
+        frequencyMBtn.setText("Frecuencias");
+        frequencyMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frequencyMBtnActionPerformed(evt);
+            }
+        });
+        toolMI.add(frequencyMBtn);
 
         jMenuBar1.add(toolMI);
 
@@ -331,13 +368,13 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 
             }
             if(itemCB.getSelectedItem().equals("Frecuencia")){
-                frequencyMeasuresFrame a =  new frequencyMeasuresFrame();
+                frequencyMeasuresFrame a =  new frequencyMeasuresFrame(null, null);
                 a.setVisible(true);
                 this.dispose();
             }
             if(itemCB.getSelectedItem().equals("Medidas de Posición")){
-                posMeasuresFrame a =  new posMeasuresFrame();
-                a.setVisible(true);
+                //posMeasuresFrame a =  new posMeasuresFrame();
+                //a.setVisible(true);
                 this.dispose();
             }
         }
@@ -353,13 +390,13 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 
             }
             if(itemCB.getSelectedItem().equals("Representación")){
-                graphicBarFrame a =  new graphicBarFrame(null);
+                graphicBarFrame a =  new graphicBarFrame(null, null);
                 a.setVisible(true);
                 this.dispose();
             }
             if(itemCB.getSelectedItem().equals("Medidas de Posición")){
-                posMeasuresFrame a =  new posMeasuresFrame();
-                a.setVisible(true);
+                //posMeasuresFrame a =  new posMeasuresFrame();
+                //a.setVisible(true);
                 this.dispose();
             }
         }
@@ -469,10 +506,72 @@ public class MainMenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_eleventhGradeRBtnMouseClicked
 
     private void graphMakerMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMakerMIActionPerformed
-        graphicBarFrame a =  new graphicBarFrame(null);
+        graphicBarFrame a =  new graphicBarFrame(null,null);
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_graphMakerMIActionPerformed
+
+    private void frequencyMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyMBtnActionPerformed
+        frequencyMeasuresFrame a =  new frequencyMeasuresFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_frequencyMBtnActionPerformed
+
+    private void loadMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMBtnActionPerformed
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            //Parts of the file manager(path, and savedFileObj)
+            File file = fc.getSelectedFile();
+            String path = file.getAbsolutePath();
+            Path pathS = Paths.get(path);
+            SavedFileObj e = null;
+            
+            //
+            try{           
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                e = (SavedFileObj) in.readObject();
+                if(e.getWindowType() == 1){
+                    graphFileReader a = (graphFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    graphicBarFrame b =  new graphicBarFrame(a,pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else if(e.getWindowType() == 2){
+                    frequencyFileReader a = (frequencyFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    frequencyMeasuresFrame b = new frequencyMeasuresFrame(a, pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else if(e.getWindowType() == 3){
+                    posMeasuresFileReader a = (posMeasuresFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    posMeasuresFrame b = new posMeasuresFrame(a, pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    in.close();
+                    fileIn.close();
+                }
+            }
+            catch(IOException i){
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                c.printStackTrace();
+            };
+        }
+    }//GEN-LAST:event_loadMBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -518,6 +617,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton fifthGradeRBtn;
     private javax.swing.JRadioButton firstGradeRBtn;
     private javax.swing.JRadioButton fourthGradeRBtn;
+    private javax.swing.JMenuItem frequencyMBtn;
     private javax.swing.JMenuItem graphMakerMI;
     private javax.swing.JComboBox<String> itemCB;
     private javax.swing.JLabel jLabel1;
@@ -527,6 +627,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenuItem loadMBtn;
     private javax.swing.JRadioButton ninthGradeRBtn;
     private javax.swing.JRadioButton secondGradeRBtn;
     private javax.swing.JRadioButton seventhGradeRBtn;

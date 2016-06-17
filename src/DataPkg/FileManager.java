@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package DataPkg;
+import InterfacePkg.tools.graphicBarFrame;
 import InterfacePkg.*;
 import java.io.*;
 /**
@@ -21,6 +22,7 @@ public class FileManager {
         fileOut = new FileOutputStream(_path);
     }
     
+    /*
     public boolean save(Object obj){
         try
         {
@@ -38,7 +40,7 @@ public class FileManager {
         }
     }
     
-    public void load(String path){
+    /*public void load(String path){
         SavedFileObj e = null;
         try{           
             FileInputStream fileIn = new FileInputStream(path);
@@ -49,7 +51,7 @@ public class FileManager {
                 in.close();
                 fileIn.close();
                 System.out.println(a.getX());
-                graphicBarFrame b =  new graphicBarFrame(a);
+                //graphicBarFrame b =  new graphicBarFrame(a);
                 b.setVisible(true);
             }
             else{
@@ -63,5 +65,5 @@ public class FileManager {
         catch(ClassNotFoundException c){
             c.printStackTrace();
         }
-    }
+    }*/
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package DataPkg;
+import InterfacePkg.tools.graphicBarFrame;
 import InterfacePkg.*;
 /**
  *
@@ -22,8 +23,8 @@ public class loader {
     public void selector(){
         switch(_window){
             case 25:
-                graphicBarFrame a =  new graphicBarFrame((graphFileReader) _obj);
-                a.setVisible(true);
+                //graphicBarFrame a =  new graphicBarFrame((graphFileReader) _obj);
+                //a.setVisible(true);
                 break;
         }
     }

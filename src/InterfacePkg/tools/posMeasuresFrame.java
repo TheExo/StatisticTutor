@@ -3,23 +3,56 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package InterfacePkg;
+package InterfacePkg.tools;
+import DataPkg.SavedFileObj;
+import DataPkg.frequencyFileReader;
+import DataPkg.graphFileReader;
+import DataPkg.posMeasuresFileReader;
+import InterfacePkg.MainMenuFrame;
 import LogicPkg.ArithmeticUnitNormalizer;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author ignacio
  */
 public class posMeasuresFrame extends javax.swing.JFrame {
-    ArrayList<String> list =  new ArrayList();
-    ArithmeticUnitNormalizer calc = new ArithmeticUnitNormalizer();
+    private ArrayList<String> list =  new ArrayList();
+    private ArithmeticUnitNormalizer calc = new ArithmeticUnitNormalizer();
+    private String fileName = "Nuevo Documento";
+    private final int windowID = 3;
     /**
      * Creates new form GrapherVentana
      */
-    public posMeasuresFrame() {
+    public posMeasuresFrame(posMeasuresFileReader preLoad, String pFileName) {
         initComponents();
+        String dataPanel = "";
+        if(preLoad!=null){
+            list = preLoad.getList();
+            if(!list.isEmpty()){
+                calc.setArray(list);
+                resultDisplayTA.setText(String.valueOf(calc.getResults())); 
+            }
+            for(String part: list)
+                dataPanel += part + "\n";
+            dataDisplayTA.setText(dataPanel);
+            inputTF.setText("");
+        }
+        if(pFileName != null)
+        fileName = pFileName;
+        this.setTitle(fileName);
     }
 
     /**
@@ -42,14 +75,16 @@ public class posMeasuresFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         resultDisplayTA = new javax.swing.JTextArea();
         addBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        helpTA = new javax.swing.JTextArea();
         closeBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         delBtn = new javax.swing.JButton();
         calcBtn = new javax.swing.JButton();
         clearBtn = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        saveMBtn = new javax.swing.JMenuItem();
+        loadMBtn = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,14 +124,6 @@ public class posMeasuresFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Explicación");
-
-        helpTA.setEditable(false);
-        helpTA.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        helpTA.setColumns(20);
-        helpTA.setRows(5);
-        jScrollPane3.setViewportView(helpTA);
-
         closeBtn.setText("Cerrar");
 
         jLabel5.setText("Datos");
@@ -122,6 +149,33 @@ public class posMeasuresFrame extends javax.swing.JFrame {
             }
         });
 
+        jMenu1.setText("Archivo");
+
+        saveMBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveMBtn.setText("Guardar");
+        saveMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(saveMBtn);
+
+        loadMBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        loadMBtn.setText("Cargar");
+        loadMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadMBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(loadMBtn);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Herramientas");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,18 +200,15 @@ public class posMeasuresFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(calcBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(clearBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel3)
+                        .addContainerGap(180, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,21 +220,14 @@ public class posMeasuresFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addBtn)
                             .addComponent(delBtn)
@@ -192,8 +236,9 @@ public class posMeasuresFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(returnBtn)
                             .addComponent(closeBtn)
-                            .addComponent(clearBtn))
-                        .addGap(24, 24, 24))))
+                            .addComponent(clearBtn)))
+                    .addComponent(jScrollPane2))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -208,13 +253,23 @@ public class posMeasuresFrame extends javax.swing.JFrame {
 
     private void inputTFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTFKeyPressed
         String dataPanel = "";
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            list.add(inputTF.getText());
-            for(String part: list)
-                dataPanel += part + "\n";
-            dataDisplayTA.setText(dataPanel);
+        try{
+            if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                double a = Double.parseDouble(inputTF.getText());
+                list.add(inputTF.getText());
+                for(String part: list)
+                    dataPanel += part + "\n";
+                dataDisplayTA.setText(dataPanel);
+                inputTF.setText("");
+            }
+        
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "La entrada solo puede ser numeros,\n"
+                                          + " y no puede ser vacia",
+                                          "Error Numérico", JOptionPane.ERROR_MESSAGE);
             inputTF.setText("");
-        }     
+        }
     }//GEN-LAST:event_inputTFKeyPressed
 
     private void calcBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcBtnActionPerformed
@@ -244,12 +299,120 @@ public class posMeasuresFrame extends javax.swing.JFrame {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         String dataPanel = "";
-        list.add(inputTF.getText());
+        try{
+            double a = Double.parseDouble(inputTF.getText());
+            System.out.println(inputTF.getText());
+            list.add(inputTF.getText());
             for(String part: list)
                 dataPanel += part + "\n";
             dataDisplayTA.setText(dataPanel);
             inputTF.setText("");
+        
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "La entrada solo puede ser numeros,\n"
+                                          + " y no puede ser vacia",
+                                          "Error Numérico", JOptionPane.ERROR_MESSAGE);
+            inputTF.setText("");
+        }
     }//GEN-LAST:event_addBtnActionPerformed
+
+    private void saveMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMBtnActionPerformed
+        String path;
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Specify a file to save");  
+        int userSelection = fileChooser.showSaveDialog(this);
+        
+        SavedFileObj savedFile = new SavedFileObj(windowID);
+        posMeasuresFileReader savedFrequency = new posMeasuresFileReader(list);
+        
+        if (userSelection == JFileChooser.APPROVE_OPTION){
+            File fileToSave = fileChooser.getSelectedFile();
+            if(fileToSave.exists() && !fileToSave.isDirectory()){
+            }
+            
+            if(!fileToSave.getAbsolutePath().endsWith(".dstf"))
+                path = fileToSave.getAbsolutePath()+".dstf";
+            else
+                path = fileToSave.getAbsolutePath();
+            
+            try
+            {
+                FileOutputStream fileOut = new FileOutputStream(path);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                Path pathS = Paths.get(path);
+                fileName = pathS.getFileName().toString();
+                this.setTitle(fileName);
+                out.writeObject(savedFile);
+                out.writeObject(savedFrequency);
+                out.close();
+                fileOut.close();
+            }
+            catch(IOException i){
+                i.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_saveMBtnActionPerformed
+
+    private void loadMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMBtnActionPerformed
+        //Handle open button action.
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            //Parts of the file manager(path, and savedFileObj)
+            File file = fc.getSelectedFile();
+            String path = file.getAbsolutePath();
+            Path pathS = Paths.get(path);
+            SavedFileObj e = null;
+            
+            //
+            try{           
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                e = (SavedFileObj) in.readObject();
+                if(e.getWindowType() == 1){
+                    graphFileReader a = (graphFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    graphicBarFrame b =  new graphicBarFrame(a,pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else if(e.getWindowType() == 2){
+                    frequencyFileReader a = (frequencyFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    frequencyMeasuresFrame b = new frequencyMeasuresFrame(a, pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else if(e.getWindowType() == 3){
+                    posMeasuresFileReader a = (posMeasuresFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    posMeasuresFrame b = new posMeasuresFrame(a, pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    in.close();
+                    fileIn.close();
+                }
+            }
+            catch(IOException i){
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                c.printStackTrace();
+            };
+        }
+    }//GEN-LAST:event_loadMBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,7 +451,7 @@ public class posMeasuresFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new posMeasuresFrame().setVisible(true);
+                new posMeasuresFrame(null, null).setVisible(true);
             }
         });
     }
@@ -300,18 +463,20 @@ public class posMeasuresFrame extends javax.swing.JFrame {
     private javax.swing.JButton closeBtn;
     private javax.swing.JTextArea dataDisplayTA;
     private javax.swing.JButton delBtn;
-    private javax.swing.JTextArea helpTA;
     private javax.swing.JTextField inputTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JMenuItem loadMBtn;
     private javax.swing.JTextArea resultDisplayTA;
     private javax.swing.JButton returnBtn;
+    private javax.swing.JMenuItem saveMBtn;
     // End of variables declaration//GEN-END:variables
 }

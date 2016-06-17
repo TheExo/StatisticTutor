@@ -3,13 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package InterfacePkg;
+package InterfacePkg.tools;
 
+import DataPkg.SavedFileObj;
+import DataPkg.frequencyFileReader;
+import DataPkg.graphFileReader;
+import DataPkg.posMeasuresFileReader;
+import InterfacePkg.MainMenuFrame;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,12 +34,58 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frequencyMeasuresFrame extends javax.swing.JFrame {
     //Attributes
-    ArrayList<Double> dataList = new ArrayList();
+    private ArrayList<Double> dataList = new ArrayList();
+    private final int windowID = 2;
+    private String fileName = "Nuevo Documento";
      /**
      * Creates new form frequencyMeasuresFrame
      */
-    public frequencyMeasuresFrame() {
+    public frequencyMeasuresFrame(frequencyFileReader preLoad, String pFileName) {
         initComponents();
+        
+        if(preLoad!=null){
+            dataList = preLoad.getList();
+            int counter = 0;
+            DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+            try{
+                Collections.sort(dataList);
+                ArrayList<Double> uniqueList = new ArrayList();
+                for(Double data : dataList){
+                    counter++;
+                    if(!uniqueList.contains(data))
+                        uniqueList.add(data);
+                }
+
+                ArrayList<Integer> countList = new ArrayList();
+                for(Double data : uniqueList){
+                    int cant = 0;
+                    for(Double dataC : dataList){
+                        if(Objects.equals(data, dataC))
+                            cant++;
+                    }
+                    countList.add(cant);
+                }
+
+                for(int i = model.getRowCount() - 1 ; i>= 0; i--)
+                    model.removeRow(i);
+
+                for(Double data : uniqueList){
+                    int index = uniqueList.indexOf(data);
+                    Object[] row = { data, countList.get(index), new DecimalFormat("#.##").format(ruleOfThree(counter, countList.get(index))) + "%"};
+                    model.addRow(row);
+                }            
+                numInputTA.setText("");
+                dataTable.repaint();
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Todas las entradas de la tabla deben ser números", "Error Numérico", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if(pFileName != null)
+        fileName = pFileName;
+        this.setTitle(fileName);
+        
+                
     }
 
     /**
@@ -46,6 +108,11 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        saveMBtn = new javax.swing.JMenuItem();
+        loadMBtn = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,9 +218,36 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jMenu1.setText("Archivo");
+
+        saveMBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveMBtn.setText("Guardar");
+        saveMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(saveMBtn);
+
+        loadMBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        loadMBtn.setText("Cargar");
+        loadMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadMBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(loadMBtn);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Herramientas");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,7 +306,6 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
             
             for(int i = model.getRowCount() - 1 ; i>= 0; i--)
                 model.removeRow(i);
-            //dataTable.repaint();
             
             for(Double data : uniqueList){
                 int index = uniqueList.indexOf(data);
@@ -222,7 +315,7 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
             numInputTA.setText("");
         }
         catch(NumberFormatException e){
-            System.out.println("aaaaa");
+            JOptionPane.showMessageDialog(this, "Todas las entradas de la tabla deben ser números", "Error Numérico", JOptionPane.ERROR_MESSAGE);
         }
                
     }//GEN-LAST:event_addDataBtnActionPerformed
@@ -233,6 +326,102 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
         main.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_returnBtnActionPerformed
+
+    private void saveMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMBtnActionPerformed
+        String path;
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Specify a file to save");  
+        int userSelection = fileChooser.showSaveDialog(this);
+        
+        SavedFileObj savedFile = new SavedFileObj(windowID);
+        frequencyFileReader savedFrequency = new frequencyFileReader(dataList);
+        
+        if (userSelection == JFileChooser.APPROVE_OPTION){
+            File fileToSave = fileChooser.getSelectedFile();
+            if(fileToSave.exists() && !fileToSave.isDirectory()){
+            }
+            
+            if(!fileToSave.getAbsolutePath().endsWith(".dstf"))
+                path = fileToSave.getAbsolutePath()+".dstf";
+            else
+                path = fileToSave.getAbsolutePath();
+            
+            try
+            {
+                FileOutputStream fileOut = new FileOutputStream(path);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                Path pathS = Paths.get(path);
+                fileName = pathS.getFileName().toString();
+                this.setTitle(fileName);
+                out.writeObject(savedFile);
+                out.writeObject(savedFrequency);
+                out.close();
+                fileOut.close();
+            }
+            catch(IOException i){
+                i.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_saveMBtnActionPerformed
+
+    private void loadMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMBtnActionPerformed
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DSTF Files", "dstf");
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            //Parts of the file manager(path, and savedFileObj)
+            File file = fc.getSelectedFile();
+            String path = file.getAbsolutePath();
+            Path pathS = Paths.get(path);
+            SavedFileObj e = null;
+            
+            
+            try{           
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                e = (SavedFileObj) in.readObject();
+                if(e.getWindowType() == 1){
+                    graphFileReader a = (graphFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    graphicBarFrame b =  new graphicBarFrame(a,pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else if(e.getWindowType() == 2){
+                    frequencyFileReader a = (frequencyFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    frequencyMeasuresFrame b = new frequencyMeasuresFrame(a, pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else if(e.getWindowType() == 3){
+                    posMeasuresFileReader a = (posMeasuresFileReader) in.readObject();
+                    in.close();
+                    fileIn.close();
+                    posMeasuresFrame b = new posMeasuresFrame(a, pathS.getFileName().toString());
+                    b.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    in.close();
+                    fileIn.close();
+                }
+            }
+            catch(IOException i){
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                c.printStackTrace();
+            };
+        }
+    }//GEN-LAST:event_loadMBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,7 +453,7 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frequencyMeasuresFrame().setVisible(true);
+                new frequencyMeasuresFrame(null, null).setVisible(true);
             }
         });
     }
@@ -279,13 +468,18 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
     private javax.swing.JButton addDataBtn;
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JMenuItem loadMBtn;
     private javax.swing.JTextField numInputTA;
     private javax.swing.JButton returnBtn;
+    private javax.swing.JMenuItem saveMBtn;
     // End of variables declaration//GEN-END:variables
 }

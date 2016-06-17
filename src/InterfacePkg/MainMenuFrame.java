@@ -472,24 +472,122 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 a.setVisible(true);
                 this.dispose();
             }
-        }
+        } 
         if(eigthGradeRBtn.isSelected()){
-            if(itemCB.getSelectedItem().equals("Recolección de Información")){
-                baseKnowlegeFrame a =  new baseKnowlegeFrame(2);
+            if(itemCB.getSelectedItem().equals("Diagrama")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(80);
                 a.setVisible(true);
                 this.dispose();
             }
-            if(itemCB.getSelectedItem().equals("Frecuencia")){
-                
+            if(itemCB.getSelectedItem().equals("Frecuencia Absoluta")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(81);
+                a.setVisible(true);
+                this.dispose();
             }
-            if(itemCB.getSelectedItem().equals("Representación")){
-                graphicBarFrame a =  new graphicBarFrame(null, null);
+            if(itemCB.getSelectedItem().equals("Gráfica")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(82);
                 a.setVisible(true);
                 this.dispose();
             }
             if(itemCB.getSelectedItem().equals("Medidas de Posición")){
-                //posMeasuresFrame a =  new posMeasuresFrame();
-                //a.setVisible(true);
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(83);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Moda")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(84);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Recorrido")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(85);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(ninthGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Dispersión")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(90);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Frecuencia Absoluta")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(91);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Gráfica")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(92);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Moda")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(93);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Recorrido")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(94);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(tenthGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Cuartiles")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(100);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Media Aritmética")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(101);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Media Aritmética Ponderada")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(102);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Mediana")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(103);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Moda")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(104);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(eleventhGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Coeficiente de Variación")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(110);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Desviación Estándar")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(111);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Rango")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(112);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Rango Intercuartílico")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(113);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Variabilidad")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(114);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Varianza")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(115);
+                a.setVisible(true);
                 this.dispose();
             }
         }
@@ -534,11 +632,8 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void sixthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixthGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Frecuencia");
+        itemCB.addItem("Porcentaje");
     }//GEN-LAST:event_sixthGradeRBtnMouseClicked
 
     private void seventhGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seventhGradeRBtnMouseClicked
@@ -555,36 +650,40 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void eigthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eigthGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("Recolección de Información");
-        itemCB.addItem("Frecuencia");
-        itemCB.addItem("Frecuecia Absoluta");
+        itemCB.addItem("Diagrama");
+        itemCB.addItem("Frecuencia Absoluta");
+        itemCB.addItem("Gráfica");
         itemCB.addItem("Medidas de Posición");
+        itemCB.addItem("Moda");
+        itemCB.addItem("Recorrido");        
     }//GEN-LAST:event_eigthGradeRBtnMouseClicked
 
     private void ninthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ninthGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("Variables Cuantitativas");
+        itemCB.addItem("Dispersión");
         itemCB.addItem("Distribuciones de Frecuencia");
-        itemCB.addItem("Representación Tabular");
-        itemCB.addItem("Representación Gráfica");
+        itemCB.addItem("Gráfica");
+        itemCB.addItem("Moda");
+        itemCB.addItem("Recorrido");
     }//GEN-LAST:event_ninthGradeRBtnMouseClicked
 
     private void tenthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenthGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Cuartiles");
+        itemCB.addItem("Media Aritmética");
+        itemCB.addItem("Media Aritmética Ponderada");
+        itemCB.addItem("Mediana");
+        itemCB.addItem("Moda");
     }//GEN-LAST:event_tenthGradeRBtnMouseClicked
 
     private void eleventhGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eleventhGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Coeficiente de Variación");
+        itemCB.addItem("Desviación Estándar");
+        itemCB.addItem("Rango");
+        itemCB.addItem("Rango Intercuartílico");
+        itemCB.addItem("Variabilidad");
+        itemCB.addItem("Varianza");
     }//GEN-LAST:event_eleventhGradeRBtnMouseClicked
 
     private void graphMakerMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMakerMIActionPerformed

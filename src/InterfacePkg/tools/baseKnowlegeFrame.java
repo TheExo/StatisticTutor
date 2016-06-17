@@ -6,6 +6,7 @@
 package InterfacePkg.tools;
 
 import DataPkg.SavedFileObj;
+import DataPkg.dataManager;
 import DataPkg.frequencyFileReader;
 import DataPkg.graphFileReader;
 import DataPkg.posMeasuresFileReader;
@@ -31,8 +32,10 @@ public class baseKnowlegeFrame extends javax.swing.JFrame {
     /**
      * Creates new form baseKnowlegeFrame
      */
-    public baseKnowlegeFrame() {
+    public baseKnowlegeFrame(int selector){
         initComponents();
+        dataManager a = new dataManager(selector);
+        textArea.setText(a.getInfo());
     }
 
     /**
@@ -46,7 +49,7 @@ public class baseKnowlegeFrame extends javax.swing.JFrame {
 
         btnGroup = new javax.swing.ButtonGroup();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textArea = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -58,9 +61,10 @@ public class baseKnowlegeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        textArea.setEditable(false);
+        textArea.setColumns(20);
+        textArea.setRows(5);
+        jScrollPane2.setViewportView(textArea);
 
         jButton1.setText("Regresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -109,10 +113,10 @@ public class baseKnowlegeFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -226,7 +230,7 @@ public class baseKnowlegeFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new baseKnowlegeFrame().setVisible(true);
+                new baseKnowlegeFrame(0).setVisible(true);
             }
         });
     }
@@ -240,8 +244,8 @@ public class baseKnowlegeFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuItem loadMBtn;
     private javax.swing.JMenuItem posMeasuresMBtn;
+    private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }

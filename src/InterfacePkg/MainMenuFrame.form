@@ -45,6 +45,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="frequencyMBtnActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="posMeasuresMBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Medidas de Posici&#xf3;n"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="posMeasuresMBtnActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -140,12 +148,10 @@
     <Component class="javax.swing.JComboBox" name="itemCB">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="a"/>
-            <StringItem index="1" value="b"/>
-            <StringItem index="2" value="c"/>
-            <StringItem index="3" value="d"/>
-            <StringItem index="4" value="e"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Dato"/>
+            <StringItem index="1" value="Interrogaci&#xf3;n"/>
+            <StringItem index="2" value="Variabilidad"/>
           </StringArray>
         </Property>
       </Properties>
@@ -324,19 +330,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="eleventhGradeRBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="acceptBtn" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
-                              <Component id="closeBtn" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="eleventhGradeRBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="acceptBtn" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="closeBtn" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

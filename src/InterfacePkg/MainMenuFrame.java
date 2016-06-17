@@ -81,6 +81,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
         toolMI = new javax.swing.JMenu();
         graphMakerMI = new javax.swing.JMenuItem();
         frequencyMBtn = new javax.swing.JMenuItem();
+        posMeasuresMBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,7 +89,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Estadistica y Probabilidad");
 
-        itemCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "a", "b", "c", "d", "e" }));
+        itemCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dato", "Interrogación", "Variabilidad" }));
 
         firstGradeRBtn.setText("Primero");
         firstGradeRBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -250,15 +251,10 @@ public class MainMenuFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(eleventhGradeRBtn)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 28, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(acceptBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(closeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                    .addComponent(eleventhGradeRBtn)
+                    .addComponent(acceptBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,6 +298,14 @@ public class MainMenuFrame extends javax.swing.JFrame {
             }
         });
         toolMI.add(frequencyMBtn);
+
+        posMeasuresMBtn.setText("Medidas de Posición");
+        posMeasuresMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                posMeasuresMBtnActionPerformed(evt);
+            }
+        });
+        toolMI.add(posMeasuresMBtn);
 
         jMenuBar1.add(toolMI);
 
@@ -355,34 +359,123 @@ public class MainMenuFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
-        if(firstGradeRBtn.isSelected() && itemCB.getSelectedItem().equals("Media Aritmética")){
-            
+        if(firstGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Dato")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(10);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Interrogación")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(11);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Variabilidad")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(12);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(secondGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Dato")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(10);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Interrogación")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(11);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Variabilidad")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(20);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(thirdGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Interrogación")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(30);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(fourthGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Madición")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(40);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(fifthGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Gráfica")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(50);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Muestra")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(51);
+                a.setVisible(true);
+                this.dispose();
+            }
+        }
+        if(sixthGradeRBtn.isSelected()){
+            if(itemCB.getSelectedItem().equals("Frecuencia")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(60);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Porcentaje")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(61);
+                a.setVisible(true);
+                this.dispose();
+            }
         }
         if(seventhGradeRBtn.isSelected()){
-            if(itemCB.getSelectedItem().equals("Conocimientos Básicos")){
-                baseKnowlegeFrame a =  new baseKnowlegeFrame();
+            if(itemCB.getSelectedItem().equals("Característica")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(70);
                 a.setVisible(true);
                 this.dispose();
             }
-            if(itemCB.getSelectedItem().equals("Recolección de Información")){
-                
-            }
-            if(itemCB.getSelectedItem().equals("Frecuencia")){
-                frequencyMeasuresFrame a =  new frequencyMeasuresFrame(null, null);
+            if(itemCB.getSelectedItem().equals("Dato")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(71);
                 a.setVisible(true);
                 this.dispose();
             }
-            if(itemCB.getSelectedItem().equals("Medidas de Posición")){
-                //posMeasuresFrame a =  new posMeasuresFrame();
-                //a.setVisible(true);
+            if(itemCB.getSelectedItem().equals("Frecuencia Absoluta")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(72);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Frecuencia Relativa")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(73);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Media Aritmética")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(74);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Muestra")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(75);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Variabilidad")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(76);
+                a.setVisible(true);
+                this.dispose();
+            }
+            if(itemCB.getSelectedItem().equals("Variable")){
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(77);
+                a.setVisible(true);
                 this.dispose();
             }
         }
-        
-        //Eigth grade subjects
         if(eigthGradeRBtn.isSelected()){
             if(itemCB.getSelectedItem().equals("Recolección de Información")){
-                baseKnowlegeFrame a =  new baseKnowlegeFrame();
+                baseKnowlegeFrame a =  new baseKnowlegeFrame(2);
                 a.setVisible(true);
                 this.dispose();
             }
@@ -411,47 +504,32 @@ public class MainMenuFrame extends javax.swing.JFrame {
     buttons are the same for each subject*/
     private void firstGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Dato");
+        itemCB.addItem("Interrogación");
+        itemCB.addItem("Variabilidad");
     }//GEN-LAST:event_firstGradeRBtnMouseClicked
 
     private void secondGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secondGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Dato");
+        itemCB.addItem("Interrogación");
+        itemCB.addItem("Variabilidad");
     }//GEN-LAST:event_secondGradeRBtnMouseClicked
 
     private void thirdGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirdGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Interrogación");
     }//GEN-LAST:event_thirdGradeRBtnMouseClicked
 
     private void fourthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourthGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Medición");
     }//GEN-LAST:event_fourthGradeRBtnMouseClicked
 
     private void fifthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fifthGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("a");
-        itemCB.addItem("b");
-        itemCB.addItem("c");
-        itemCB.addItem("d");
-        itemCB.addItem("e");
+        itemCB.addItem("Gráfica");
+        itemCB.addItem("Muestra");
     }//GEN-LAST:event_fifthGradeRBtnMouseClicked
 
     private void sixthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixthGradeRBtnMouseClicked
@@ -465,17 +543,21 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private void seventhGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seventhGradeRBtnMouseClicked
         itemCB.removeAllItems();
-        itemCB.addItem("Conocimientos Básicos");
-        itemCB.addItem("Recolección de Información");
-        itemCB.addItem("Frecuencia");
-        itemCB.addItem("Medidas de Posición");
+        itemCB.addItem("Característica");
+        itemCB.addItem("Dato");
+        itemCB.addItem("Frecuecia Absoluta");
+        itemCB.addItem("Frecuencia Relativa");
+        itemCB.addItem("Media Aritmética");
+        itemCB.addItem("Muestra");
+        itemCB.addItem("Variabilidad");
+        itemCB.addItem("Variable");
     }//GEN-LAST:event_seventhGradeRBtnMouseClicked
 
     private void eigthGradeRBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eigthGradeRBtnMouseClicked
         itemCB.removeAllItems();
         itemCB.addItem("Recolección de Información");
         itemCB.addItem("Frecuencia");
-        itemCB.addItem("Representación");
+        itemCB.addItem("Frecuecia Absoluta");
         itemCB.addItem("Medidas de Posición");
     }//GEN-LAST:event_eigthGradeRBtnMouseClicked
 
@@ -573,6 +655,12 @@ public class MainMenuFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadMBtnActionPerformed
 
+    private void posMeasuresMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_posMeasuresMBtnActionPerformed
+        posMeasuresFrame a = new posMeasuresFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_posMeasuresMBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -629,6 +717,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuItem loadMBtn;
     private javax.swing.JRadioButton ninthGradeRBtn;
+    private javax.swing.JMenuItem posMeasuresMBtn;
     private javax.swing.JRadioButton secondGradeRBtn;
     private javax.swing.JRadioButton seventhGradeRBtn;
     private javax.swing.JRadioButton sixthGradeRBtn;

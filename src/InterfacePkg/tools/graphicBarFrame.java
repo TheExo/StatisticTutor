@@ -118,9 +118,6 @@ public class graphicBarFrame extends javax.swing.JFrame {
         graphBtn = new javax.swing.JButton();
         returnBtn = new javax.swing.JButton();
         subsColumnBtn = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -133,6 +130,8 @@ public class graphicBarFrame extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        posMeasuresMBtn = new javax.swing.JMenuItem();
+        frequencyMBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -193,13 +192,6 @@ public class graphicBarFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Explicación");
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {}
@@ -244,8 +236,6 @@ public class graphicBarFrame extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(dataPanelLayout.createSequentialGroup()
                                 .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(dataPanelLayout.createSequentialGroup()
@@ -261,7 +251,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
                                     .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel7))
-                        .addGap(0, 7, Short.MAX_VALUE))
+                        .addGap(0, 19, Short.MAX_VALUE))
                     .addComponent(titleTextField))
                 .addContainerGap())
         );
@@ -298,11 +288,7 @@ public class graphicBarFrame extends javax.swing.JFrame {
                     .addComponent(returnBtn)
                     .addComponent(subsColumnBtn)
                     .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(123, 123, 123))
         );
 
         javax.swing.GroupLayout barGraphPanelLayout = new javax.swing.GroupLayout(barGraphPanel);
@@ -351,6 +337,23 @@ public class graphicBarFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Herramientas");
+
+        posMeasuresMBtn.setText("Medidas de Posición");
+        posMeasuresMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                posMeasuresMBtnActionPerformed(evt);
+            }
+        });
+        jMenu2.add(posMeasuresMBtn);
+
+        frequencyMBtn.setText("Frecuencias");
+        frequencyMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frequencyMBtnActionPerformed(evt);
+            }
+        });
+        jMenu2.add(frequencyMBtn);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -588,6 +591,18 @@ public class graphicBarFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void posMeasuresMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_posMeasuresMBtnActionPerformed
+        posMeasuresFrame a = new posMeasuresFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_posMeasuresMBtnActionPerformed
+
+    private void frequencyMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyMBtnActionPerformed
+        frequencyMeasuresFrame a =  new frequencyMeasuresFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_frequencyMBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -660,13 +675,13 @@ public class graphicBarFrame extends javax.swing.JFrame {
     private javax.swing.JButton closeBtn;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JTable dataTable;
+    private javax.swing.JMenuItem frequencyMBtn;
     private javax.swing.JButton graphBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -674,9 +689,8 @@ public class graphicBarFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuItem loadMenuBtn;
+    private javax.swing.JMenuItem posMeasuresMBtn;
     private javax.swing.JButton resetBtn;
     private javax.swing.JButton returnBtn;
     private javax.swing.JMenuItem saveMenuBtn;

@@ -10,6 +10,7 @@ import DataPkg.frequencyFileReader;
 import DataPkg.graphFileReader;
 import DataPkg.posMeasuresFileReader;
 import InterfacePkg.MainMenuFrame;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -101,20 +102,26 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
         numInputTA = new javax.swing.JTextField();
         addDataBtn = new javax.swing.JButton();
         returnBtn = new javax.swing.JButton();
+        delBtn = new javax.swing.JButton();
+        clrBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         saveMBtn = new javax.swing.JMenuItem();
         loadMBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        graphMakerMI = new javax.swing.JMenuItem();
+        posMeasuresMBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        numInputTA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                numInputTAKeyPressed(evt);
+            }
+        });
 
         addDataBtn.setText("Añadir Dato");
         addDataBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +137,20 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
             }
         });
 
+        delBtn.setText("Borrar");
+        delBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delBtnActionPerformed(evt);
+            }
+        });
+
+        clrBtn.setText("Reiniciar");
+        clrBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clrBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,12 +158,13 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numInputTA)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(addDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(returnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 188, Short.MAX_VALUE)))
+                        .addComponent(numInputTA, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 6, Short.MAX_VALUE))
+                    .addComponent(addDataBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(delBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(clrBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(returnBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,11 +172,26 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(numInputTA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(addDataBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(delBtn)
+                .addGap(18, 18, 18)
+                .addComponent(clrBtn)
+                .addGap(18, 18, 18)
                 .addComponent(returnBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 265, Short.MAX_VALUE)
         );
 
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -174,53 +211,6 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dataTable);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jLabel1.setText("Explicación");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         jMenu1.setText("Archivo");
 
@@ -245,6 +235,23 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Herramientas");
+
+        graphMakerMI.setText("Graficador");
+        graphMakerMI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphMakerMIActionPerformed(evt);
+            }
+        });
+        jMenu2.add(graphMakerMI);
+
+        posMeasuresMBtn.setText("Medidas de Posición");
+        posMeasuresMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                posMeasuresMBtnActionPerformed(evt);
+            }
+        });
+        jMenu2.add(posMeasuresMBtn);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -255,23 +262,20 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -423,6 +427,143 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadMBtnActionPerformed
 
+    private void graphMakerMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMakerMIActionPerformed
+        graphicBarFrame a =  new graphicBarFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_graphMakerMIActionPerformed
+
+    private void posMeasuresMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_posMeasuresMBtnActionPerformed
+        posMeasuresFrame a = new posMeasuresFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_posMeasuresMBtnActionPerformed
+
+    private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed
+        int counter = 0;
+        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+        if(!dataList.contains(Double.parseDouble(numInputTA.getText())))
+            JOptionPane.showMessageDialog(this, "Numero no en la lista", "Error Numérico", JOptionPane.ERROR_MESSAGE);
+        try{
+            dataList.remove(Double.parseDouble(numInputTA.getText()));
+            Collections.sort(dataList);
+            
+            
+            ArrayList<Double> uniqueList = new ArrayList();
+            for(Double data : dataList){
+                counter++;
+                if(!uniqueList.contains(data))
+                    uniqueList.add(data);
+            }
+            
+            ArrayList<Integer> countList = new ArrayList();
+            for(Double data : uniqueList){
+                int cant = 0;
+                for(Double dataC : dataList){
+                    if(Objects.equals(data, dataC))
+                        cant++;
+                }
+                countList.add(cant);
+            }
+            
+            for(int i = model.getRowCount() - 1 ; i>= 0; i--)
+                model.removeRow(i);
+            
+            for(Double data : uniqueList){
+                int index = uniqueList.indexOf(data);
+                Object[] row = { data, countList.get(index), new DecimalFormat("#.##").format(ruleOfThree(counter, countList.get(index))) + "%"};
+                model.addRow(row);
+            }            
+            numInputTA.setText("");
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Todas las entradas de la tabla deben ser números", "Error Numérico", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_delBtnActionPerformed
+
+    private void clrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clrBtnActionPerformed
+        int counter = 0;
+        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+        dataList.clear();
+        try{
+            Collections.sort(dataList);
+            
+            
+            ArrayList<Double> uniqueList = new ArrayList();
+            for(Double data : dataList){
+                counter++;
+                if(!uniqueList.contains(data))
+                    uniqueList.add(data);
+            }
+            
+            ArrayList<Integer> countList = new ArrayList();
+            for(Double data : uniqueList){
+                int cant = 0;
+                for(Double dataC : dataList){
+                    if(Objects.equals(data, dataC))
+                        cant++;
+                }
+                countList.add(cant);
+            }
+            
+            for(int i = model.getRowCount() - 1 ; i>= 0; i--)
+                model.removeRow(i);
+            
+            for(Double data : uniqueList){
+                int index = uniqueList.indexOf(data);
+                Object[] row = { data, countList.get(index), new DecimalFormat("#.##").format(ruleOfThree(counter, countList.get(index))) + "%"};
+                model.addRow(row);
+            }            
+            numInputTA.setText("");
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Todas las entradas de la tabla deben ser números", "Error Numérico", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_clrBtnActionPerformed
+
+    private void numInputTAKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numInputTAKeyPressed
+        int counter = 0;
+        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+        try{
+            if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                dataList.add(Double.parseDouble(numInputTA.getText()));
+                Collections.sort(dataList);
+
+
+                ArrayList<Double> uniqueList = new ArrayList();
+                for(Double data : dataList){
+                    counter++;
+                    if(!uniqueList.contains(data))
+                        uniqueList.add(data);
+                }
+
+                ArrayList<Integer> countList = new ArrayList();
+                for(Double data : uniqueList){
+                    int cant = 0;
+                    for(Double dataC : dataList){
+                        if(Objects.equals(data, dataC))
+                            cant++;
+                    }
+                    countList.add(cant);
+                }
+
+                for(int i = model.getRowCount() - 1 ; i>= 0; i--)
+                    model.removeRow(i);
+
+                for(Double data : uniqueList){
+                    int index = uniqueList.indexOf(data);
+                    Object[] row = { data, countList.get(index), new DecimalFormat("#.##").format(ruleOfThree(counter, countList.get(index))) + "%"};
+                    model.addRow(row);
+                }            
+                numInputTA.setText("");
+            }
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Todas las entradas de la tabla deben ser números", "Error Numérico", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_numInputTAKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -466,19 +607,19 @@ public class frequencyMeasuresFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDataBtn;
+    private javax.swing.JButton clrBtn;
     private javax.swing.JTable dataTable;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton delBtn;
+    private javax.swing.JMenuItem graphMakerMI;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuItem loadMBtn;
     private javax.swing.JTextField numInputTA;
+    private javax.swing.JMenuItem posMeasuresMBtn;
     private javax.swing.JButton returnBtn;
     private javax.swing.JMenuItem saveMBtn;
     // End of variables declaration//GEN-END:variables

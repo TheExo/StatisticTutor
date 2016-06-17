@@ -85,6 +85,8 @@ public class posMeasuresFrame extends javax.swing.JFrame {
         saveMBtn = new javax.swing.JMenuItem();
         loadMBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        graphMakerMI = new javax.swing.JMenuItem();
+        frequencyMBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,6 +174,23 @@ public class posMeasuresFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Herramientas");
+
+        graphMakerMI.setText("Graficador");
+        graphMakerMI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphMakerMIActionPerformed(evt);
+            }
+        });
+        jMenu2.add(graphMakerMI);
+
+        frequencyMBtn.setText("Frecuencias");
+        frequencyMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frequencyMBtnActionPerformed(evt);
+            }
+        });
+        jMenu2.add(frequencyMBtn);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -414,6 +433,18 @@ public class posMeasuresFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadMBtnActionPerformed
 
+    private void graphMakerMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphMakerMIActionPerformed
+        graphicBarFrame a =  new graphicBarFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_graphMakerMIActionPerformed
+
+    private void frequencyMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyMBtnActionPerformed
+        frequencyMeasuresFrame a =  new frequencyMeasuresFrame(null,null);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_frequencyMBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -463,6 +494,8 @@ public class posMeasuresFrame extends javax.swing.JFrame {
     private javax.swing.JButton closeBtn;
     private javax.swing.JTextArea dataDisplayTA;
     private javax.swing.JButton delBtn;
+    private javax.swing.JMenuItem frequencyMBtn;
+    private javax.swing.JMenuItem graphMakerMI;
     private javax.swing.JTextField inputTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
